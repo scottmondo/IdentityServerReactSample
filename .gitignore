@@ -87,6 +87,8 @@ fabric.properties
 *.userosscache
 *.sln.docstates
 
+.vscode/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -446,3 +448,7 @@ FodyWeavers.xsd
 localhost.crt
 localhost.key
 localhost.pfx
+
+### MISE ###
+mise.toml
+./**/mise.toml
