@@ -19,7 +19,16 @@ public class AccountHandler
 
         var result = await signInManager.PasswordSignInAsync(input.UserName, input.Password, input.IsPersistent, true);
 
-        return result.Succeeded ? Results.Json(new { returnUrl }) : Results.BadRequest(result.ToString());
+        if(result.Succeeded) 
+        {
+            if(result.RequiresTwoFactor)
+            {
+                return Results.Json(new { returnUrl = "/account/two-factor-authentication" });
+            }
+            return Results.Json(new { returnUrl });
+        }
+
+        return  Results.BadRequest(result.ToString());
     }
 
     public record LoginInputModel(string UserName, string Password, string? ReturnUrl, bool IsPersistent = false);

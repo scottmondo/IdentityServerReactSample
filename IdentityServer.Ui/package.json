@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "node ./scripts/build.mjs"
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "prod": "vite serve"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -15,8 +18,11 @@
     "@types/node": "^18.17.1",
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-basic-ssl": "^1.0.0",
     "esbuild": "^0.25.0",
     "prettier": "^3.0.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "vite": "^5.2.0"
   }
 }

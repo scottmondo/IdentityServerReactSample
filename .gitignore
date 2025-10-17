@@ -452,3 +452,7 @@ localhost.pfx
 ### MISE ###
 mise.toml
 ./**/mise.toml
+
+### Vite ###
+.vite/
+dist/

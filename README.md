@@ -6,7 +6,7 @@
 
 1. Generate a self-signed certificate.
     ```shell
-    openssl req -x509 -newkey rsa:4096 -keyout localhost.key -out localhost.crt -subj "/CN=localhost" -addext "subjectAltName=DNS:localhost,DNS:identityserver,DNS:webapplication"
+    openssl req -x509 -newkey rsa:4096 -keyout localhost.key -out localhost.crt -subj "/CN=localhost" -addext "subjectAltName=DNS:localhost,DNS:identityserver,DNS:identityserverapi,DNS:identityserverui,DNS:webapplication"
     ```
     ```shell
     openssl pkcs12 -export -in localhost.crt -inkey localhost.key -out localhost.pfx -name "Adding a React 18 User Interface to IdentityServer 6"

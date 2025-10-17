@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
+import TwoFactorAuthentication from "./pages/TwoFactorAuthentication";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -14,6 +15,11 @@ export default function App() {
       path: "/account/logout",
       element: <Logout />,
     },
+    {
+      path: "/account/two-factor-authentication",
+      element: <TwoFactorAuthentication />
+    }
+
   ]);
 
   return <RouterProvider router={router} />;

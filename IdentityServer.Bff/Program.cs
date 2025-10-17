@@ -52,12 +52,22 @@ builder.Services.AddAuthorization(options =>
    });
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DefaultCorsPolicy", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+     
+   });
+});
+
 var app = builder.Build();
 
 app.UseStaticFiles();
 
 app.UseRouting();
-app.ConfigureCors();
 
 
 app.UseIdentityServer();
@@ -122,6 +132,7 @@ if (app.Environment.IsDevelopment())
     }
 }
 
+app.UseCors("DefaultCorsPolicy");
 app.Run();
 
 void NpgsqlOptionsAction(NpgsqlDbContextOptionsBuilder npgsqlDbContextOptionsBuilder)

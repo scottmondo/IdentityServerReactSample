@@ -12,7 +12,7 @@ services:
       - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
-  identityserver:
+  identityserverapi:
     build:
       context: .
       dockerfile: ./IdentityServer.Bff/Dockerfile
@@ -32,12 +32,25 @@ services:
     volumes:
       - ./localhost.pfx:/https/localhost.pfx:ro
       - ./localhost.crt:/usr/local/share/ca-certificates/localhost.crt:ro
+  identityserverui:
+    build:
+      context: .
+      dockerfile: ./IdentityServer.Ui/Dockerfile
+    depends_on:
+      identityserverapi:
+        condition: service_started
+    environment:
+      NODE_ENV: production
+    ports:
+      - "7001:7001"
   webapplication:
     build:
       context: .
       dockerfile: ./WebApplication/Dockerfile
     depends_on:
-      identityserver:
+      identityserverapi:
+        condition: service_started
+      identityserverui:
         condition: service_started
     entrypoint: /bin/sh -c "update-ca-certificates && dotnet WebApplication.dll"
     environment:
@@ -45,7 +58,7 @@ services:
       - ASPNETCORE_URLS=https://+:7002
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
-      - AUTHENTICATION__AUTHORITY=https://identityserver:7000
+      - AUTHENTICATION__AUTHORITY=https://identityserverui:7001
       - AUTHENTICATION__CLIENTID=4ecc4153-daf9-4eca-8b60-818a63637a81
       - AUTHENTICATION__CLIENTSECRET=secret
     ports:

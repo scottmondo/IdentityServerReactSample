@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.IdentityModel.Logging;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddAuthentication(authenticationOptions =>
         openIdConnectOptions.ClientId = builder.Configuration["Authentication:ClientId"];
         openIdConnectOptions.ClientSecret = builder.Configuration["Authentication:ClientSecret"];
         openIdConnectOptions.GetClaimsFromUserInfoEndpoint = true;
+        openIdConnectOptions.RequireHttpsMetadata = false;
         openIdConnectOptions.ResponseType = "code";
         openIdConnectOptions.SaveTokens = true;
     });
@@ -29,7 +31,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 
-    app.UseHsts();
+    IdentityModelEventSource.ShowPII = true;
 }
 
 app.UseHttpsRedirection();
