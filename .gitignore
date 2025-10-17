@@ -448,6 +448,7 @@ FodyWeavers.xsd
 localhost.crt
 localhost.key
 localhost.pfx
+_cert.pem
 
 ### MISE ###
 mise.toml

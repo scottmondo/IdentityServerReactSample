@@ -114,7 +114,7 @@ if (app.Environment.IsDevelopment())
                 ClientName = "Web Application",
                 AllowedGrantTypes = GrantTypes.Code,
                 AllowedScopes = new List<string> { "openid", "profile", "email" },
-                RedirectUris = new List<string> { "https://webapplication:7002/signin-oidc" },
+                RedirectUris = new List<string> { "https://webapplication:7002/signin-oidc"},
                 PostLogoutRedirectUris = new List<string> { "https://webapplication:7002/signout-callback-oidc" }
             }.ToEntity());
 

@@ -11,28 +11,13 @@ export default defineConfig({
     }),
   ],
   preview: {
-    port: 7001,
+    port: 7002,
     strictPort: true,
  },
  server: {
-  port: 7001,
+  port: 7002,
   strictPort: true,
   host: true,
-  allowedHosts: true,
-  proxy: {
-    '/api': {
-      target: 'https://identityserverapi:7000',
-      secure: false,
-    },
-    '/connect': {
-      target: 'https://identityserverapi:7000',
-      secure: false,
-    },
-    '/.well-known': {
-      target: 'https://identityserverapi:7000',
-      secure: false,
-    },
-    
-  },
+  origin: 'https://webapplication:7002',
  },
 });
