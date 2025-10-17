@@ -18,7 +18,11 @@ export default defineConfig({
   port: 7001,
   strictPort: true,
   host: true,
-  allowedHosts: true,
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  },
   proxy: {
     '/api': {
       target: 'https://identityserverapi:7000',

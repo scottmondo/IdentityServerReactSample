@@ -18,6 +18,10 @@ export default defineConfig({
   port: 7002,
   strictPort: true,
   host: true,
-  origin: 'https://webapplication:7002',
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  },
  },
 });
