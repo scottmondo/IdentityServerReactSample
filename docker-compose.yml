@@ -43,6 +43,29 @@ services:
       NODE_ENV: production
     ports:
       - "7001:7001"
+  webapplication:
+    build:
+      context: .
+      dockerfile: ./WebApplication/Dockerfile
+    depends_on:
+      identityserverapi:
+        condition: service_started
+      identityserverui:
+        condition: service_started
+    entrypoint: /bin/sh -c "update-ca-certificates && dotnet WebApplication.dll"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:7002
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
+      - AUTHENTICATION__AUTHORITY=https://identityserverui:7001
+      - AUTHENTICATION__CLIENTID=4ecc4153-daf9-4eca-8b60-818a63637a81
+      - AUTHENTICATION__CLIENTSECRET=secret
+    ports:
+      - "7002:7002"
+    volumes:
+      - ./localhost.pfx:/https/localhost.pfx:ro
+      - ./localhost.crt:/usr/local/share/ca-certificates/localhost.crt:ro
   webapplicationreact:
     build:
       context: .
