@@ -6,14 +6,14 @@
 
 1. Generate a self-signed certificate.
     ```shell
-    openssl req -x509 -newkey rsa:4096 -keyout localhost.key -out localhost.crt -subj "/CN=localhost" -addext "subjectAltName=DNS:localhost,DNS:identityserver,DNS:identityserverapi,DNS:identityserverui,DNS:webapplication"
+    openssl req -x509 -passout "pass:password" -newkey rsa:4096 -keyout localhost.key -out localhost.crt -subj "/CN=localhost" -addext "subjectAltName=DNS:localhost,DNS:identityserver,DNS:identityserverapi,DNS:identityserverui,DNS:webapplication,DNS:webapplicationreact" 
     ```
     ```shell
-    openssl pkcs12 -export -in localhost.crt -inkey localhost.key -out localhost.pfx -name "Adding a React 18 User Interface to IdentityServer 6"
+    openssl pkcs12 -export -in localhost.crt -inkey localhost.key -out localhost.pfx -passin "pass:password"  -passout "pass:password"  -name "Adding a React 18 User Interface to IdentityServer 6"
     ```
 1. Import the self-signed certificate.
     ```shell
-    certutil -f -user -importpfx Root localhost.pfx
+    certutil -f -user -importpfx  -p "password" Root localhost.pfx
     ```
 1. Add the line below to the hosts file.
     ```text

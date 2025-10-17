@@ -8,11 +8,11 @@ export default defineConfig({
     react(),
   ],
   preview: {
-    port: 7002,
+    port: 7003,
     strictPort: true,
  },
  server: {
-  port: 7002,
+  port: 7003,
   https: {
     key: './certs/localhost.key',
     cert: './certs/localhost.crt',

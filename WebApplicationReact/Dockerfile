@@ -4,7 +4,7 @@ RUN apk add --no-cache ca-certificates && update-ca-certificates
 
 WORKDIR /src
 
-COPY "./WebApplication" .
+COPY "./WebApplicationReact" .
 RUN ls -la
 
 RUN npm install
@@ -15,6 +15,6 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 7002
+EXPOSE 7003
 
 CMD [ "npm", "run", "prod" ]

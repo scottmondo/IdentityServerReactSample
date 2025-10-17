@@ -43,10 +43,10 @@ services:
       NODE_ENV: production
     ports:
       - "7001:7001"
-  webapplication:
+  webapplicationreact:
     build:
       context: .
-      dockerfile: ./WebApplication/Dockerfile
+      dockerfile: ./WebApplicationReact/Dockerfile
     depends_on:
       identityserverapi:
         condition: service_started
@@ -55,6 +55,6 @@ services:
     environment:
       NODE_ENV: production
     ports:
-      - "7002:7002"
+      - "7003:7003"
 volumes:
   db:
