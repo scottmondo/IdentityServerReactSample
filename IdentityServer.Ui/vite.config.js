@@ -16,6 +16,11 @@ export default defineConfig({
  },
  server: {
   port: 7001,
+  https: {
+    key: './certs/localhost.key',
+    cert: './certs/localhost.crt',
+    passphrase: 'password',
+  },
   strictPort: true,
   host: true,
   cors: {
