@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using Duende.IdentityServer.Hosting;
+using IdentityServer.Bff;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,16 @@ builder.Services.AddIdentityServer(identityServerOptions =>
     .AddOperationalStore(operationalStoreOptions =>
     {
         operationalStoreOptions.ResolveDbContextOptions = ResolveDbContextOptions;
+    });
+
+
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();
+builder.Services.AddAuthorization(options =>
+{
+   options.AddPolicy("TwoFactorEnabled", policy =>
+   {
+       policy.RequireClaim("amr", "mfa");
+   });
     });
 
 var app = builder.Build();
@@ -74,7 +85,8 @@ if (app.Environment.IsDevelopment())
                 UserName = "thomas.clark",
                 Email = "thomas.clark@example.com",
                 GivenName = "Thomas",
-                FamilyName = "Clark"
+                FamilyName = "Clark",
+                TwoFactorEnabled = true
             }, "Pa55w0rd!");
     }
 
